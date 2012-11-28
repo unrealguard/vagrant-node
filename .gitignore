@@ -7,6 +7,9 @@ lib-cov
 *.pid
 *.gz
 
+#Vagrant vm identity file
+*.vagrant
+
 pids
 logs
 results
