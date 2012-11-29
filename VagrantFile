@@ -15,6 +15,6 @@ Vagrant::Config.run do |config|
   end
   
   # config.vm.provision :shell do |shell|
-	# shell.path = vmAppPath + "startServer.sh"
+	# shell.path = "./app/startServer.sh"
   # end
 end
