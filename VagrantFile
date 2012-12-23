@@ -1,20 +1,26 @@
 
 
+
+
 Vagrant::Config.run do |config|
   vmAppPath = "/home/vagrant/app"
+  
   config.vm.box = "lucid32"
   config.vm.forward_port(8888, 8888)
   # Create logical folder app from vm /app to host ./app
   config.vm.share_folder("app", vmAppPath, "./app")
 
   config.vm.provision :chef_solo do |chef|
+	chef.json = {
+		forever: {
+			script_dir: vmAppPath,
+			script: "server.js"
+		}
+	}
     chef.cookbooks_path = "cookbooks"
 	chef.add_recipe("apt");
 	chef.add_recipe("build-essential");
-    chef.add_recipe("nodejs")
+    chef.add_recipe("nodejs::npm")
+	chef.add_recipe("forever")
   end
-  
-  # config.vm.provision :shell do |shell|
-	# shell.path = "./app/startServer.sh"
-  # end
 end
